@@ -1,0 +1,23 @@
+---
+   - hosts: all
+     sudo: true
+     vars:
+       #
+       # General folder
+       #
+       download_folder: "/opt"
+       
+       #
+       # Java JDK RPM files
+       #
+       java_rpm_file: "jdk-8u65-linux-x64.rpm"
+       java_dest_name: "{{download_folder}}/{{java_rpm_file}}"
+       
+       #
+       # Tomcat compressed file
+       #
+       tomcat_compressed_file: "apache-tomcat-9.0.0.M1.tar"
+     
+     roles:
+       - common
+       - tc

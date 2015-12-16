@@ -1,0 +1,22 @@
+---
+   # Common Tasks
+   # Deepak Shenoy, December 14, 2015
+   #
+   # Install Tomcat
+   #
+   #
+   
+   - copy: src={{tomcat_compressed_file}} dest={{download_folder}}/{{tomcat_compressed_file}}
+   
+   # tar xvf apache-tomcat-9.0.0.M1.tar
+   # Use copy=no to ensure that host server is not used
+   - unarchive: src={{download_folder}}/{{tomcat_compressed_file}}
+                dest={{download_folder}}
+                copy=no
+   
+   # echo "export CATALINA_HOME=\"/opt/apache-tomcat-9.0.0.M1\"" >> ~/.bashrc
+   # source ~/.bashrc
+   # cd /opt/apache-tomcat-9.0.0.M1
+   # ./bin/startup.sh
+   
+   

@@ -1,0 +1,20 @@
+---
+   # Common Tasks
+   # Deepak Shenoy, September 25, 2015
+   #
+   # General parameters for server
+   #
+   # To speed up deployment and avoid any compatibility 
+   # issues, java 1.7 is installed directly from disk
+   # and respective firewall ports opened up
+   #
+   
+   - copy: src={{java_rpm_file}} dest={{java_dest_name}}
+   
+   - firewalld: zone=public port=8080/tcp permanent=true state=enabled
+   - firewalld: zone=public port=80/tcp permanent=true state=enabled
+   - firewalld: zone=public service=http permanent=true state=enabled
+   
+   - shell: firewall-cmd --reload
+   
+   - yum: name={{java_dest_name}} state=present

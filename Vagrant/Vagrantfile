@@ -1,0 +1,23 @@
+# Vagrantfile
+
+
+Vagrant.configure(2) do |config|
+    config.ssh.insert_key = false
+    config.vm.box = "relativkreativ/centos-7-minimal"
+    
+    config.vm.define :tomcat do |tomcatserver|
+        tomcatserver.vm.network :private_network, type: "dhcp"
+        tomcatserver.vm.network "forwarded_port", guest: 80, host:8099
+        tomcatserver.vm.network "forwarded_port", guest: 8080, host:8089
+        tomcatserver.vm.hostname = "tc01"
+        
+        tomcatserver.vm.provision :ansible do |ansible|
+            ansible.playbook = "../Ansible/TCMainPlaybook.yml"
+            ansible.verbose = "vvvv"
+            ansible.limit = "all"
+            ansible.groups = {
+                "tcsrvr" => ["tcsrvr"]
+            }
+        end
+    end
+end
